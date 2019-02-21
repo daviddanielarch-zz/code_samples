@@ -1,0 +1,21 @@
+If you have docker-compose installed this will start the redis server and start the django development server on port 8000
+    docker-compose up
+
+If you dont user docker-compose (which you should cause its awesome), you can just use docker to start the redis server
+    sudo docker run --name redis --publish 6379:6379 -d redis
+
+And then create a virtual env and run django from there manually:
+
+To setup the development environment you should:
+1) Create a new virtualenv
+    python3 -m venv env
+
+2) Activate it
+    source env/bin/activate
+
+3) Install requirements
+    pip install -r requirements.txt
+
+4) Either run the server or run the tests with (redis has to be already running before running any of these steps)
+    python manage.py tests
+    python manage.py runserver

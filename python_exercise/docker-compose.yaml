@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  redis:
+    image: redis
+    expose:
+    - 6379
+
+  django:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on:
+      - redis
+    environment:
+      - REDIS_SERVER=redis:6379
+    ports:
+      - 8000:8000
+
