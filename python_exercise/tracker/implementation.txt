@@ -1,0 +1,4 @@
+As there was no requirement to use a SQL database for this exercise I used only redis as the main backend database.
+This is probably as fast as you can get as all operations are O(1)
+
+There is a Carts class that acts as a interface for the database, changing the database implementation for other key-value stores should be pretty straightforward as this is the only place that would need to be modified.

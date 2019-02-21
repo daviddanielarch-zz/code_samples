@@ -114,7 +114,7 @@ class IntegrationTest(LiveServerTestCase):
     def tearDown(self):
         self.carts.redis.flushall()
 
-    def test_basic_chart(self):
+    def test_basic_cart(self):
         # User adds first item, a new cart should be created
         response = requests.post(self.url, data={'product_id': 'computer'})
         self.assertEqual(response.status_code, 200)

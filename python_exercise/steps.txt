@@ -1,10 +1,14 @@
+[DOCKER-COMPOSE]
 If you have docker-compose installed this will start the redis server and start the django development server on port 8000
     docker-compose up
 
-If you dont user docker-compose (which you should cause its awesome), you can just use docker to start the redis server
+[NO DOCKER-COMPOSE]
+If you dont user docker-compose (which you should cause it's awesome), you can just use docker to start the redis server
     sudo docker run --name redis --publish 6379:6379 -d redis
 
-And then create a virtual env and run django from there manually:
+or you can just use your own redis server if it's already installed
+
+After having a sentry instance running, create a virtual env and run django from there manually:
 
 To setup the development environment you should:
 1) Create a new virtualenv
