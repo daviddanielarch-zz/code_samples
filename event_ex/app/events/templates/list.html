@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block extra_js %}
+    <script>
+        let userId = {{ user.id }};
+        const fetchPage = function(url){
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(result) {
+                    let rows = '';
+                    result.results.forEach(elem => {
+                        const editDisabled = '' ? elem.owner_id === userId : 'disabled';
+                        if (editDisabled === ''){
+                            console.log('asd');
+                        }
+                        let editCell = `
+                            <a href="event_detail/${elem.id}">
+                                <button class="btn btn-primary" ${editDisabled}>Edit</button>
+                            </a>`;
+
+                        rows += `
+                        <tr>
+                            <td> ${elem.owner_username}</td>
+                            <td> ${elem.title}</td>
+                            <td> ${elem.date}</td>
+                            <td> ${elem.participants}</td>
+                            <td> ${editCell} </td>
+                        </tr>
+                        `
+                    });
+                    let table = `
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Owner</th>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>Participants</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    ${rows}
+                    </tbody>
+                    </table>
+                    `;
+                    $('#table').html(table);
+                    $('#total_count').html(`Total events: ${result.count}`);
+                    $('#next_page').prop("disabled", result.next === null);
+                    $('#next_page').unbind('click').click(function(){
+                       fetchPage(result.next);
+                    });
+                    $('#previous_page').prop("disabled", result.previous === null);
+                    $('#previous_page').unbind('click').click(function(){
+                       fetchPage(result.previous);
+                    });
+                },
+                error: function(result) {
+                }
+            });
+        };
+        $(function() {
+            fetchPage("{% url 'events-list' %}");
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="pull-right">
+        <a href="{% url 'create-event' %}"><button class="btn btn-primary">Create event</button></a>
+    </div>
+    <div class="container">
+        <div id="table"></div>
+        <div id="total_count" class=""></div>
+        <div>
+            <button id="next_page" class="btn btn-primary">Older</button>
+            <button id="previous_page" class="btn btn-primary">Newer</button>
+        </div>
+    </div>
+{% endblock %}

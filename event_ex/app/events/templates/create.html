@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load rest_framework %}
+
+{% block extra_js %}
+    <script>
+        $(function() {
+            $('#updateBtn').click(function(e){
+                e.preventDefault();
+                const title = $('input[name="title"]').val();
+                const description = $('textarea[name="description"]').val();
+                const date = $('input[name="date"]').val();
+                $.ajax({
+                    headers: {'X-CSRFTOKEN': '{{ csrf_token }}'},
+                    url: "{% url 'events-list' %}",
+                    data: {title:title, description:description, date:date},
+                    type: 'POST',
+                    success: function(result) {
+                        $('#alert').addClass('alert-success').removeClass('alert-error').html('Succesfully created');
+                    },
+                    error: function(result) {
+                        $('#alert').html(result.responseText).addClass('alert-danger').removeClass('alert-success');
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container">
+    <h1>Create event</h1>
+
+    <form action="#" method="PUT">
+        {% csrf_token %}
+
+        <div class="form-group ">
+            <label>Title</label>
+            <input name="title" class="form-control" type="text" value="">
+        </div>
+
+        <div class="form-group ">
+            <label>Date</label>
+            <input name="date" class="form-control" type="datetime-local" value="">
+        </div>
+
+        <div class="form-group ">
+            <label>Description</label>
+            <textarea name="description" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group ">
+            <label>Participants</label>
+            <input name="participants" class="form-control" type="number" value="0" disabled>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="updateBtn">Create</button>
+    </form>
+    <div class="alert" id="alert" role="alert"></div>
+</div>
+
+{% endblock %}
