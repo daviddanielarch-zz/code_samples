@@ -1,0 +1,23 @@
+.arrow{
+    margin-left: 50%;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid black;
+}
+
+@media screen and (max-width: 991px) {
+    .arrow {
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+
+        border-top: 15px solid black;
+    }
+}
+
+.create-alert{
+    width: 100%;
+}

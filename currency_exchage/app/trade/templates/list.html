@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_head %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="{% static 'js/list.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    <div id="app" class="container d-none">
+        <div class="float-right pt-3 pb-3 pr-5">
+            <a href="{% url 'create-trade' %}"> <button class="btn btn-primary"> New trade </button> </a>
+        </div>
+        <div>
+            <table class="table table-bordered" id="booked_trades">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Sell CCY</th>
+                        <th>Sell Amount</th>
+                        <th>Buy CCY</th>
+                        <th>Buy Amount</th>
+                        <th>Rate</th>
+                        <th>Date Booked</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="trade in trades">
+                        <td>{% templatetag openvariable %} trade.sell_currency {% templatetag closevariable %}</td>
+                        <td>{% templatetag openvariable %} trade.sell_amount {% templatetag closevariable %}</td>
+                        <td>{% templatetag openvariable %} trade.buy_currency {% templatetag closevariable %}</td>
+                        <td>{% templatetag openvariable %} trade.buy_amount {% templatetag closevariable %}</td>
+                        <td>{% templatetag openvariable %} trade.rate {% templatetag closevariable %}</td>
+                        <td>{% templatetag openvariable %} trade.date_booked {% templatetag closevariable %}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
