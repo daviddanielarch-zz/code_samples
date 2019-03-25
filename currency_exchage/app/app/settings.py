@@ -126,7 +126,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "trade", "static"),
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'STATICFILES')
+STATIC_ROOT = env.str('STATIC_ROOT', default='')
 
 FIXER_URL = 'http://data.fixer.io/api/latest'
 

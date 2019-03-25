@@ -1,0 +1,39 @@
+<h2>Configuration</h2>
+<p>The following environment variables can be set to configure the app</p>
+<p><strong>DEBUG (bool)</strong>: enable debugging. (defaults to <code>True</code>)</p>
+<p><strong>ALLOWED_HOSTS (list)</strong>: when DEBUG=False, a list of comma separated hostnames/IPs to access the server. (defaults to [])</p>
+<p><strong>SECRET_KEY (string)</strong>: Django specific secret key used for security features.</p>
+<p><strong>FIXER_ACCESS_KEY (string)</strong>: Fixer.io Access Key (<strong>required</strong>)</p>
+<p><strong>STATIC_ROOT (string)</strong>: Directory where the static files wiil be copied (Production only)</p>
+<h2>Installation</h2>
+<p>1) Create a new virtualenv</p>
+<pre><code>python3 -m venv env
+</code></pre>
+<p>2) Activate it</p>
+<pre><code>source env/bin/activate
+</code></pre>
+<p>3) Install requirements</p>
+<pre><code>pip install -r requirements.txt
+</code></pre>
+<p>4) Either run the server or run the tests with:</p>
+<pre><code>python manage.py tests
+
+python manage.py runserver
+</code></pre>
+<h2>Deployment</h2>
+<p>Deployment process varies from organization but these prior deployment this are some of the tasks that should be performed:</p>
+<ul>
+<li>
+<p>Copy static files using</p>
+<p>python manage.py collecstatics</p>
+</li>
+<li>
+<p>Minimization of CSS and JS files</p>
+</li>
+<li>
+<p>Copy minified files to the webserver resource folder</p>
+</li>
+<li>
+<p>gunicorn is already installed in the environment and can be used to run the app</p>
+</li>
+</ul>
